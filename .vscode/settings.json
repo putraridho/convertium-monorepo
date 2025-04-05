@@ -1,0 +1,18 @@
+{
+  "javascript.suggestionActions.enabled": false,
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/pnpm-lock.yaml": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.sortImports": "explicit",
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
+    "source.removeUnusedImports": "explicit"
+  },
+  "editor.tabSize": 2,
+  "typescript.referencesCodeLens.enabled": true,
+  "css.lint.unknownAtRules": "ignore"
+}

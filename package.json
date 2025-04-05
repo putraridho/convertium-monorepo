@@ -1,0 +1,48 @@
+{
+  "name": "@convertium/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:web": "pnpm --filter web run dev",
+    "build:web": "pnpm --filter web run build",
+    "start:web": "pnpm --filter web run start",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\"",
+    "lint": "eslint \"**/*.{ts,tsx,js,jsx}\" --fix",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@heroui/system": "^2.4.12",
+    "@heroui/theme": "^2.4.12",
+    "@phosphor-icons/react": "^2.1.7",
+    "dayjs": "^1.11.13",
+    "next": "^14.2.17",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.23.0",
+    "@types/node": "^22.10.7",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.1.5",
+    "eslint-plugin-storybook": "^0.12.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.0"
+  }
+}

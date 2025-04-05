@@ -1,0 +1,9 @@
+{
+  "name": "@convertium/utils",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "clsx": "^2.1.1"
+  }
+}
