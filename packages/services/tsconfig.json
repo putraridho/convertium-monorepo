@@ -1,6 +1,6 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
     "target": "es2017",
     "module": "commonjs",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
@@ -22,14 +22,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@convertium/constants": ["packages/constants"],
-      "@convertium/services": ["packages/services"],
-      "@convertium/ui": ["packages/ui"],
-      "@convertium/utils": ["packages/utils"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  "include": ["apps/**/*", "packages/**/*"]
+  "include": ["./src/**/*.ts"]
 }

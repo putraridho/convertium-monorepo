@@ -36,6 +36,20 @@ module.exports = {
         "xtra-small": ["0.75rem", "1.25rem"],
         micro: ["0.5rem", "0.5rem"],
       },
+      keyframes: {
+        enter: {
+          "0%": { transform: "scale(0.9)", opacity: 0 },
+          "100%": { transform: "scale(1)", opacity: 1 },
+        },
+        leave: {
+          "0%": { transform: "scale(1)", opacity: 1 },
+          "100%": { transform: "scale(0.9)", opacity: 0 },
+        },
+      },
+      animation: {
+        enter: "enter 300ms ease-out",
+        leave: "leave 300ms ease-in forwards",
+      },
     },
   },
   plugins: [
