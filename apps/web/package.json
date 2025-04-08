@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@convertium/constants": "workspace:^",
+    "@convertium/queries": "workspace:^",
     "@convertium/services": "workspace:^",
+    "@convertium/types": "workspace:^",
     "@convertium/ui": "workspace:^",
     "@convertium/utils": "workspace:^",
     "@emotion/react": "^11.14.0",

@@ -1,42 +1,40 @@
 import { CONFIG, REFRESH_TOKEN_KEY, TOKEN_KEY } from "@convertium/constants";
-import { getCookieWithExpiry, removeCookieWithExpiry, setCookieWithExpiry } from "./storages";
+import { getCookie, removeCookie, setCookie } from "./storages";
 
-export const setToken = (token: string, expires?: number) => {
-  setCookieWithExpiry(
+export const setToken = (token: string) => {
+  setCookie(
     TOKEN_KEY,
     token,
-    expires,
     CONFIG.HOST_URL.includes("localhost") ? "localhost" : new URL(CONFIG.HOST_URL).hostname.replace("www", ""),
   );
 };
 
 export const removeToken = () => {
-  removeCookieWithExpiry(
+  removeCookie(
     TOKEN_KEY,
     CONFIG.HOST_URL.includes("localhost") ? "localhost" : new URL(CONFIG.HOST_URL).hostname.replace("www", ""),
   );
 };
 
 export const getToken = (): string | null => {
-  return getCookieWithExpiry(TOKEN_KEY)?.toString() || null;
+  return getCookie(TOKEN_KEY)?.toString() || null;
 };
 
-export const setRefreshToken = (token: string, expires?: number) => {
-  setCookieWithExpiry(
+export const setRefreshToken = (token: string) => {
+  setCookie(
     REFRESH_TOKEN_KEY,
     token,
-    expires,
     CONFIG.HOST_URL.includes("localhost") ? "localhost" : new URL(CONFIG.HOST_URL).hostname.replace("www", ""),
   );
 };
 
 export const removeRefreshToken = () => {
-  removeCookieWithExpiry(
+  removeCookie(
     REFRESH_TOKEN_KEY,
     CONFIG.HOST_URL.includes("localhost") ? "localhost" : new URL(CONFIG.HOST_URL).hostname.replace("www", ""),
   );
 };
 
 export const getRefreshToken = (): string | null => {
-  return getCookieWithExpiry(REFRESH_TOKEN_KEY)?.toString() || null;
+  return getCookie(REFRESH_TOKEN_KEY)?.toString() || null;
 };

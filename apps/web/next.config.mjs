@@ -18,7 +18,14 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   // Enable SWC minification for faster builds
   swcMinify: true,
-  transpilePackages: ["@convertium/ui", "@convertium/utils"],
+  transpilePackages: [
+    "@convertium/constants",
+    "@adplist/queries",
+    "@adplist/services",
+    "@adplist/types",
+    "@convertium/ui",
+    "@convertium/utils",
+  ],
   // Enable page bundling for faster page loads
   env: {
     APP_ENV: process.env.APP_ENV,

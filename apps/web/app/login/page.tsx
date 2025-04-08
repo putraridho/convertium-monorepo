@@ -1,10 +1,14 @@
 "use client";
 
+import { TOKEN_KEY } from "@convertium/constants";
+import { getQueryClient } from "@convertium/queries";
+import { API } from "@convertium/services";
 import { Button, Grid, InputCheckbox, InputText, toast, Typography, VStack } from "@convertium/ui";
+import { setToken } from "@convertium/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import Link from "next/link";
-import { API } from "packages/services/src";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,6 +19,7 @@ const formSchema = z.object({
 });
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -27,11 +32,28 @@ export default function LoginPage() {
   const onSubmit = useMemo(() => {
     const submitHandler: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
       try {
-        const token = await API.getOrCreateInstance().user().login({
+        const response = await API.getOrCreateInstance().user().login({
           user_id: data.userId,
           password: data.password,
         });
-        console.log("🚀 ~ token ~ token:", token);
+        const token = response?.data?.token;
+        if (!!token) {
+          setToken(token);
+
+          const res = await API.getOrCreateInstance().user().me();
+          const queryClient = getQueryClient();
+          await queryClient.invalidateQueries({ queryKey: [TOKEN_KEY] });
+          await queryClient.prefetchQuery({
+            queryKey: ["me"],
+            queryFn: async () => res,
+          });
+
+          toast.success({
+            title: "Logged in",
+            description: "You have been successfully logged in",
+          });
+          router.push("/profile");
+        }
       } catch (e) {
         if (e instanceof Error) {
           if (e.message.includes("user_profile_user_id_key")) {
@@ -42,7 +64,7 @@ export default function LoginPage() {
     };
 
     return handleSubmit(submitHandler);
-  }, [handleSubmit]);
+  }, [handleSubmit, router]);
 
   return (
     <form onSubmit={onSubmit}>

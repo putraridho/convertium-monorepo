@@ -93,9 +93,15 @@ importers:
       '@convertium/constants':
         specifier: workspace:^
         version: link:../../packages/constants
+      '@convertium/queries':
+        specifier: workspace:^
+        version: link:../../packages/queries
       '@convertium/services':
         specifier: workspace:^
         version: link:../../packages/services
+      '@convertium/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       '@convertium/ui':
         specifier: workspace:^
         version: link:../../packages/ui
@@ -117,11 +123,41 @@ importers:
 
   packages/constants: {}
 
+  packages/queries:
+    dependencies:
+      '@convertium/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@convertium/services':
+        specifier: workspace:*
+        version: link:../services
+      '@convertium/types':
+        specifier: workspace:*
+        version: link:../types
+      '@convertium/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@tanstack/query-sync-storage-persister':
+        specifier: ^5.64.1
+        version: 5.72.1
+      '@tanstack/react-query':
+        specifier: ^5.72.1
+        version: 5.72.1(react@18.3.1)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.72.1
+        version: 5.72.1(@tanstack/react-query@5.72.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-query-persist-client':
+        specifier: ^5.64.1
+        version: 5.72.1(@tanstack/react-query@5.72.1(react@18.3.1))(react@18.3.1)
+
   packages/services:
     dependencies:
       '@convertium/constants':
         specifier: workspace:*
         version: link:../constants
+      '@convertium/types':
+        specifier: workspace:*
+        version: link:../types
       '@convertium/utils':
         specifier: workspace:*
         version: link:../utils
@@ -131,19 +167,19 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.8.4
-      js-cookie:
-        specifier: ^3.0.5
-        version: 3.0.5
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
     devDependencies:
-      '@types/js-cookie':
-        specifier: ^3.0.6
-        version: 3.0.6
       '@types/jsonwebtoken':
         specifier: ^9.0.9
         version: 9.0.9
+
+  packages/types:
+    dependencies:
+      '@convertium/utils':
+        specifier: workspace:*
+        version: link:../utils
 
   packages/ui:
     dependencies:
@@ -183,10 +219,16 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
     devDependencies:
       '@types/bcrypt':
         specifier: ^5.0.2
         version: 5.0.2
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
 
 packages:
 
@@ -918,6 +960,35 @@ packages:
 
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
+
+  '@tanstack/query-core@5.72.1':
+    resolution: {integrity: sha512-nOu0EEkZuJ0BZnYgeaEfo44+psq1jBO7/zp3KudixD4dvgOVerrhAhDEKsWx2N7MxB59mjO4r0ddP/VqWGPK+Q==}
+
+  '@tanstack/query-devtools@5.72.1':
+    resolution: {integrity: sha512-D0vEoQaiVq9ayCqvvxA9XkDq7TIesyPpvgP69arRtt5FQF6n/Hrta4SlkfXC4m9BCvFLlhLDcKGYa2eMQ4ZIIA==}
+
+  '@tanstack/query-persist-client-core@5.72.1':
+    resolution: {integrity: sha512-sceggk1lnJVNlvAUFoWZgaC1SVPgxyhoShHGczlAZHZIn7uLkEJcICXUQlvTSeJn4nr8XdFxBSW8ie/6YPmr6A==}
+
+  '@tanstack/query-sync-storage-persister@5.72.1':
+    resolution: {integrity: sha512-j0GTitNNL42vOrAEh7aQ2MkCY8tI5IR/6l+jMfx7Yc7ajFoq8afJyVVVfnseOKfswFVHt6qqQ7leyaKctn3nlQ==}
+
+  '@tanstack/react-query-devtools@5.72.1':
+    resolution: {integrity: sha512-ckNRgABst3MLjpM2nD/CzQToCiaT3jb3Xhtf+GP/0/9ij9SPT/SC+lc3wUDSkT0OupnHobBBF5E1/Xp6B+XZLg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.72.1
+      react: ^18 || ^19
+
+  '@tanstack/react-query-persist-client@5.72.1':
+    resolution: {integrity: sha512-VJ1wqgfDblyjjxdrm910bQflHNC6IVcqKMN6/DIhC7AGw8jeSKWDc7AVZW4d9L57tblyYdQfUfwTOBfpGk646Q==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.72.1
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.72.1':
+    resolution: {integrity: sha512-4UEMyRx54xj144D2nDvDIMiXSG5BrqyCJrmyNoGbymNS+VWODcBDFrmRk9p2fe12UGZ4JtKPTNuW2Jg0aisUgQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
@@ -4098,6 +4169,36 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
       tslib: 2.8.1
+
+  '@tanstack/query-core@5.72.1': {}
+
+  '@tanstack/query-devtools@5.72.1': {}
+
+  '@tanstack/query-persist-client-core@5.72.1':
+    dependencies:
+      '@tanstack/query-core': 5.72.1
+
+  '@tanstack/query-sync-storage-persister@5.72.1':
+    dependencies:
+      '@tanstack/query-core': 5.72.1
+      '@tanstack/query-persist-client-core': 5.72.1
+
+  '@tanstack/react-query-devtools@5.72.1(@tanstack/react-query@5.72.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-devtools': 5.72.1
+      '@tanstack/react-query': 5.72.1(react@18.3.1)
+      react: 18.3.1
+
+  '@tanstack/react-query-persist-client@5.72.1(@tanstack/react-query@5.72.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-persist-client-core': 5.72.1
+      '@tanstack/react-query': 5.72.1(react@18.3.1)
+      react: 18.3.1
+
+  '@tanstack/react-query@5.72.1(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.72.1
+      react: 18.3.1
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
