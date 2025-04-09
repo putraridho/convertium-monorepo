@@ -6,7 +6,7 @@ import { Button, FullPageLoading, Grid, InputText, toast, Typography, VStack } f
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -18,10 +18,11 @@ const formSchema = z.object({
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [isSuccessful, setIsSuccessful] = useState(false);
   const {
     register,
     watch,
-    formState: { isValid, isSubmitting, isSubmitSuccessful, touchedFields },
+    formState: { isValid, isSubmitting, touchedFields },
     handleSubmit,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +43,7 @@ export default function RegisterPage() {
           password: data.password,
         });
         toast.default({ title: "Registration completed." });
+        setIsSuccessful(true);
         router.push("/login");
       } catch (e: unknown) {
         if ((e as any).response?.data?.errors) {
@@ -95,7 +97,7 @@ export default function RegisterPage() {
           </Link>
         </Typography>
       </VStack>
-      {isSubmitSuccessful && <FullPageLoading />}
+      {isSuccessful && <FullPageLoading />}
     </form>
   );
 }

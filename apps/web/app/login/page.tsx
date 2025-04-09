@@ -21,10 +21,11 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
+  const [isSuccessful, setIsSuccessful] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
-    formState: { isValid, isSubmitting, isSubmitSuccessful },
+    formState: { isValid, isSubmitting },
     handleSubmit,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,9 +54,14 @@ export default function LoginPage() {
             title: "Logged in",
             description: "You have been successfully logged in",
           });
+          setIsSuccessful(true);
           router.push("/profile");
         }
       } catch (e) {
+        if (typeof (e as any).response.data === "string") {
+          toast.danger({ title: (e as any).response.data });
+          return;
+        }
         if ((e as any).response?.data?.errors) {
           Object.values((e as any).response.data.errors).forEach((value) => {
             toast.danger({ title: String(value) });
@@ -97,12 +103,12 @@ export default function LoginPage() {
 
         <Typography>
           No account?{" "}
-          <Link href="/register" className="underline">
+          <Link href="/signup" className="underline">
             Register here
           </Link>
         </Typography>
       </VStack>
-      {isSubmitSuccessful && <FullPageLoading />}
+      {isSuccessful && <FullPageLoading />}
     </form>
   );
 }
