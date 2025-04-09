@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { TOKEN_KEY } from "@convertium/constants";
 import { getQueryClient } from "@convertium/queries";
 import { API } from "@convertium/services";
-import { Button, Grid, InputCheckbox, InputText, toast, Typography, VStack } from "@convertium/ui";
+import { Button, FullPageLoading, Grid, InputCheckbox, InputText, toast, Typography, VStack } from "@convertium/ui";
 import { setToken } from "@convertium/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
@@ -23,7 +24,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
-    formState: { isValid, isSubmitting },
+    formState: { isValid, isSubmitting, isSubmitSuccessful },
     handleSubmit,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,10 +56,10 @@ export default function LoginPage() {
           router.push("/profile");
         }
       } catch (e) {
-        if (e instanceof Error) {
-          if (e.message.includes("user_profile_user_id_key")) {
-            toast.danger({ title: "User ID already taken" });
-          }
+        if ((e as any).response?.data?.errors) {
+          Object.values((e as any).response.data.errors).forEach((value) => {
+            toast.danger({ title: String(value) });
+          });
         }
       }
     };
@@ -68,7 +69,7 @@ export default function LoginPage() {
 
   return (
     <form onSubmit={onSubmit}>
-      <VStack gap={10} className="max-w-md mx-auto items-center pt-40">
+      <VStack gap={16} className="md:gap-10 max-w-md mx-auto items-center pt-24 md:pt-40 px-4">
         <Typography as="h1" size="h1">
           Welcome to <strong>myApp</strong>
         </Typography>
@@ -101,6 +102,7 @@ export default function LoginPage() {
           </Link>
         </Typography>
       </VStack>
+      {isSubmitSuccessful && <FullPageLoading />}
     </form>
   );
 }

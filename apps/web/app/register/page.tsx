@@ -2,7 +2,7 @@
 "use client";
 
 import { API } from "@convertium/services";
-import { Button, Grid, InputText, toast, Typography, VStack } from "@convertium/ui";
+import { Button, FullPageLoading, Grid, InputText, toast, Typography, VStack } from "@convertium/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ export default function RegisterPage() {
   const {
     register,
     watch,
-    formState: { isValid, isSubmitting, touchedFields },
+    formState: { isValid, isSubmitting, isSubmitSuccessful, touchedFields },
     handleSubmit,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,7 +57,7 @@ export default function RegisterPage() {
 
   return (
     <form onSubmit={onSubmit}>
-      <VStack gap={10} className="max-w-md mx-auto items-center pt-40">
+      <VStack gap={10} className="max-w-md mx-auto items-center pt-40 px-4">
         <Typography as="h1" size="h1">
           Welcome to <strong>myApp</strong>
         </Typography>
@@ -95,6 +95,7 @@ export default function RegisterPage() {
           </Link>
         </Typography>
       </VStack>
+      {isSubmitSuccessful && <FullPageLoading />}
     </form>
   );
 }

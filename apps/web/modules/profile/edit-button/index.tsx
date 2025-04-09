@@ -18,7 +18,8 @@ export function ProfileEditButton() {
       <Button
         prefix={isEditPage ? <CaretLeft size={16} weight="bold" /> : <PencilSimpleLine size={16} weight="bold" />}
       >
-        {isEditPage ? "Go back to My Profile" : "Edit Profile"}
+        <span className="hidden md:block">{isEditPage ? "Go back to My Profile" : "Edit Profile"}</span>
+        <span className="block md:hidden">{isEditPage ? "My Profile" : "Edit Profile"}</span>
       </Button>
     </Link>
   );

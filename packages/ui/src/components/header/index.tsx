@@ -1,6 +1,6 @@
 import { NavMenu } from "./nav-menu";
 
-export function Header() {
+export function Header({ loggedIn }: { loggedIn: boolean }) {
   return (
     <header className="flex justify-between items-center p-4 bg-white border-b border-b-solid border-b-default">
       <div className="flex items-center justify-center">
@@ -23,7 +23,7 @@ export function Header() {
           <polygon fill="currentColor" points="61.934 0 41.498 55.262 57.096 55.262 77.531 0 61.934 0"></polygon>
         </svg>
       </div>
-      <NavMenu />
+      <NavMenu loggedIn={loggedIn} />
     </header>
   );
 }

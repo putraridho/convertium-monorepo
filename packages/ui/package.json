@@ -8,8 +8,10 @@
     "@heroui/avatar": "^2.2.12",
     "@heroui/button": "^2.2.16",
     "@heroui/checkbox": "^2.3.15",
+    "@heroui/date-picker": "^2.3.17",
     "@heroui/dropdown": "^2.3.16",
     "@heroui/input": "^2.4.16",
+    "@heroui/select": "^2.4.17",
     "class-variance-authority": "^0.7.1",
     "react-hot-toast": "^2.5.1"
   }

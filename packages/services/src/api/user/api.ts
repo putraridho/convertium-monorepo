@@ -35,4 +35,14 @@ export class UserAPI {
 
     return api.post("/login", payload);
   }
+
+  async update(payload: Partial<Omit<User, "id" | "user_id">>, config?: AxiosRequestConfig) {
+    const api = new CoreAPI(this.apiBaseUrl, config);
+
+    try {
+      await api.post("/user", payload);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

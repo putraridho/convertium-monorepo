@@ -1,37 +1,41 @@
 "use client";
 
+import { useUser } from "@/providers";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { NavItem } from "./nav-item";
 
-const NAV_ITEMS = [
-  { href: "/profile/basic-details", label: "Basic Details" },
-  { href: "/profile/additional-details", label: "Additional Details" },
-  { href: "/profile/spouse-details", label: "Spouse Details" },
-  { href: "/profile/personal-preferences", label: "Personal Preferences" },
-];
-
-const NAV_EDIT_ITEMS = [
-  { href: "/edit-profile/basic-details", label: "Basic Details" },
-  { href: "/edit-profile/additional-details", label: "Additional Details" },
-  { href: "/edit-profile/spouse-details", label: "Spouse Details" },
-  { href: "/edit-profile/personal-preferences", label: "Personal Preferences" },
-];
-
 export function ProfileSideNav() {
+  const me = useUser();
   const pathname = usePathname();
 
   const path = useMemo(() => pathname.split("/").filter(Boolean), [pathname]);
 
   const isEditPage = useMemo(() => path[0] === "edit-profile", [path]);
 
+  const navItems = useMemo(
+    () => [
+      { href: `/${isEditPage ? "edit-profile" : "profile"}/basic-details`, label: "Basic Details" },
+      { href: `/${isEditPage ? "edit-profile" : "profile"}/additional-details`, label: "Additional Details" },
+      {
+        href: `/${isEditPage ? "edit-profile" : "profile"}/spouse-details`,
+        label: "Spouse Details",
+        disabled: me?.martial_status?.toLowerCase() !== "married",
+      },
+      { href: `/${isEditPage ? "edit-profile" : "profile"}/personal-preferences`, label: "Personal Preferences" },
+    ],
+    [isEditPage, me?.martial_status],
+  );
+
   return (
-    <ul className="flex flex-col gap-2 p-4 bg-default-100 rounded-2xl">
-      {(isEditPage ? NAV_EDIT_ITEMS : NAV_ITEMS).map((item) => (
-        <NavItem key={item.href} href={item.href} active={pathname === item.href}>
-          {item.label}
-        </NavItem>
-      ))}
+    <ul className="flex flex-col gap-2 p-2 md:p-4 bg-default-100 rounded-2xl">
+      {navItems
+        .filter((item) => !item.disabled)
+        .map((item) => (
+          <NavItem key={item.href} href={item.href} active={pathname === item.href}>
+            {item.label}
+          </NavItem>
+        ))}
     </ul>
   );
 }

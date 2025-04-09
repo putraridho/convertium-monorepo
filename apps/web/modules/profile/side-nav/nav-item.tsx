@@ -12,7 +12,7 @@ export function NavItem({ href, active, children }: React.PropsWithChildren<NavI
       <Link
         href={href}
         className={cn(
-          "flex items-center gap-4 py-2 px-4 rounded-lg text-sm transition-all",
+          "flex items-center gap-4 py-1 px-2 md:py-2 md:px-4 rounded-lg text-xs md:text-sm transition-all",
           active ? "bg-primary text-primary-foreground font-medium" : "hover:bg-default-200 hover:text-default-700",
         )}
       >

@@ -15,7 +15,7 @@ export default function Providers({
   children,
   user,
 }: React.PropsWithChildren<{
-  user: User | null;
+  user?: User | null;
 }>) {
   useEffect(() => {
     if (!CONFIG.API_BASE_URL) throw new Error("API_BASE_URL is not defined");
